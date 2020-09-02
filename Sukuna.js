@@ -1,0 +1,260 @@
+//http://discordapp.com/oauth2/authorize?client_id=544370664019197953&scope=bot The Client ID
+console.log("Started")
+
+const botconfig = require("./botconfig.json");
+const Discord = require("discord.js");
+
+const bot = new Discord.Client({disableEveryone: true})
+
+const WHIndicator = 0
+
+var deleted = "there is nothing to snipe"
+
+bot.on("ready", async () => {
+	console.log(`${bot.user.username} is online!`);
+	//bot.user.setGame("lolis");
+	bot.user.setActivity("lolis",{type:"PLAYING"});
+});
+
+bot.on("messageDelete", (messageDelete) => {
+  if (messageDelete.author.bot) return;
+  bot.users.cache.get("587138869947007007").send(`The message : "${messageDelete.content}" by ${messageDelete.author.tag} was deleted.`);
+  console.log(messageDelete)
+  deleted = messageDelete
+});
+
+
+bot.on("message", async message => {
+	//if(message.author.bot) return;
+
+	if(message.channel.type === "dm") return;
+
+	let prefix = botconfig.prefix;
+	let messageArray = message.content.split(" ");
+	let cmd = messageArray[0];
+	let args = messageArray.slice(1);
+	const embed = new Discord.MessageEmbed()
+		.setTitle('Some Title')
+   		.setColor('#0099ff');
+
+
+	if(cmd === `${prefix}start` && message.author.id === "587138869947007007") {
+		
+		//create the webhook
+		message.channel.createWebhook('Dank Memer', {
+		avatar: 'https://cdn.discordapp.com/avatars/270904126974590976/a3cd5478b6c8b90b3a20a7b82d287233.png?size=1024',
+	}).then(webhook => message.channel.send(webhook.id + webhook.token))
+		/*
+		
+		//create embed colour
+		
+    	//
+    	;*/
+    }
+
+    if (cmd.length === 86 && message.author.id === "746922853198462987" && typeof Number(cmd.slice(0, 18)) == "number"){
+    	const hookID =  cmd.slice(0,18)
+    	const hookToken = cmd.slice(18,86)
+
+    	hookCli = new Discord.WebhookClient(hookID, hookToken)
+    	const test = "test"
+    	hookCli.send(test, {
+    		username: 'Dank Memer',
+    		avatarURL: 'https://cdn.discordapp.com/avatars/270904126974590976/a3cd5478b6c8b90b3a20a7b82d287233.png?size=1024',
+    		//embeds: [embed],
+		})
+    	const WHIndicator = 1
+    	console.log(WHIndicator)
+    }
+
+
+
+	if (cmd === `${prefix}sakana`) {
+		function Sakana(){
+			message.channel.send("?sakana")
+		}
+        var VC = message.member.voice.channel;
+        if (!VC)
+            return message.reply("test")
+    	VC.join().then(connection => {
+		var dispatcher = connection.play('./o-sakana tengoku.mp3');
+		dispatcher.on("end", end => {VC.leave()});
+		function Play(){
+			setTimeout(Sakana, 247000);
+			Play();
+		}
+		Play()
+    	})
+    	    .catch(console.error);
+	};
+
+	if(cmd === `${prefix}sauce`){
+		return message.channel.send("https://nhentai.net/g/" + Math.floor(Math.random() * (326134 - 1) + 1))
+	}
+
+	if(cmd === `${prefix}arrivederci`){
+		return message.channel.send("Arrivederci, may you blessed by lolis!");
+	}
+
+		if(cmd === `${prefix}boi`){
+		return message.channel.send("<http://bit.ly/n177013>");
+	}
+
+		if(cmd === `${prefix}headpat`){
+		return message.channel.send("Nya~");
+	}
+
+		if(cmd === `${prefix}x`){
+		return message.channel.send("I *highly* doubt that!");
+	}
+		if(cmd === `${prefix}hello`){
+			return message.channel.send("Goodbye, world...");
+	}
+
+		if(cmd === `${prefix}excuseme`){
+		return message.channel.send("Excuse me WTF");
+	}
+
+		if(cmd === `${prefix}pensare`){
+		message.channel.send("", {files: ["https://cdn.discordapp.com/attachments/572275807653986315/747670442436853790/newProfile.png"]});
+
+	}
+
+		if(cmd === `${prefix}fliptable`){
+		return message.channel.send("(ﾉ´･ω･)ﾉ ﾐ ┸━┸");
+	}
+	
+		if(cmd === "gg"){
+		return message.channel.send("gg");
+	}
+
+		if(message.author.bot) return;
+		if(message.channel.type === "dm") return;
+
+		if(message.content.startsWith(prefix + "help")){
+			message.channel.send("Check DM");
+			message.author.send("Lmao you think I'll help you?")
+		}
+
+		if(message.content.startsWith(prefix + "prune")){
+			let args = message.content.split(" ").slice(1);
+			let author = message.member;
+			let role = message.guild.roles.find('name', "Owner");
+			if(author.roles.has(role.id)){
+				message.delete()
+				message.channel.bulkDelete(args[0]);
+				message.channel.send({embed:{
+					color:0x28d62b,
+					description:"boom, " + args[0] + " messages is gone!"
+				}})
+			}else{
+				message.reply("Hey! You can't do that!")
+			}
+			return
+
+		if(cmd === `${prefix}serverinfo`){
+
+			let sicon = message.guild.displayAvatarURL;
+			let serverembed = new Discord.RichEmbed()
+			.setDescription("Server Information")
+			.setColor("#66ccff")
+			.setThumbnail(sicon)
+			.addField("Server Name", message.guild.name)
+			.addField("Create On", message.guild.createAt)
+			.addField("You Joined", message.guild.joinedAt)
+			.addField("Total Members", message.guild.memberCount);
+
+		return message.channel.send(serverembed)
+		bot.on("messageDelete", (messageDelete) => {
+		 messageDelete.channel.send(`The message : "${messageDelete.content}" by ${messageDelete.author.tag} was deleted.`)
+		});
+	}	
+
+
+}});
+
+
+
+
+//fun auto reply junk
+bot.on('message', msg => {
+ if (msg === 'https://vm.tiktok.com/') return; 
+ if (msg.content.toLowerCase() === 'gn') {
+ //msg.reply('Stop being weak! Do not sleep! Stay with us!'); 
+	msg.reply('Bruh, you think I am stupid or something?');
+ };
+
+ if(msg.content.toLowerCase() === 'communism'){
+ 	msg.channel.send('<:communism:569243575674601472>')
+ }
+
+if(msg.content.toLowerCase().slice(0,22) === 'https://vm.tiktok.com/'){
+	msg.reply('Chinese Spyware!')
+}
+
+/*
+  if(msg.content.toLowerCase() === 'child sex'){
+ 	msg.channel.send('sex child')
+ }
+ */
+ });
+
+
+
+bot.on('message', exit =>{
+	if (exit.author.id === "587138869947007007"){
+		if (exit.content.toLowerCase() === 'exit now!'){
+			exit.channel.send('Understandable, have a good day.')
+			process.exit()
+		}
+	}
+})
+
+
+bot.on('message', exit =>{
+	if (exit.author.id === "746922853198462987"){
+		if (exit.content.toLowerCase() === 'https://nhentai.net/g/177013'){
+			process.exit()
+		}
+	}
+})
+
+bot.on('message', cmd =>{
+    if (cmd.content.toLowerCase() === 'pls snipe'){
+    	console.log("reached")
+    	try {
+    		hookCli.send(deleted,{
+    			username: 'Dank Memer',
+    			avatarURL: 'https://cdn.discordapp.com/avatars/270904126974590976/a3cd5478b6c8b90b3a20a7b82d287233.png?size=1024',
+    		}) 
+    	}catch(error){
+    		console.error(error);
+    	}
+    deleted = "there is nothing to be sniped"
+    	}
+    	
+})
+
+bot.login(botconfig.token);
+
+
+//speak
+const inquirer = require('inquirer')
+
+var questions = [
+  {
+    type: 'input',
+    name: 'message',
+    message: "Insert message here: "
+  }
+]
+
+var chanID = "712861593414795316";
+function Speak(){
+	inquirer.prompt(questions).then(answers => {
+      bot.channels.cache.get(chanID).send(`${answers['message']}`)
+	  Speak();
+})
+};
+
+Speak();
