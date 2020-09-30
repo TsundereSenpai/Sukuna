@@ -4,6 +4,7 @@ console.log("Started")
 const chanList = require("./chanList.json");
 const botconfig = require("./botconfig.json");
 const Discord = require("discord.js");
+const 
 
 const bot = new Discord.Client({disableEveryone: true})
 
@@ -72,7 +73,7 @@ bot.on("message", async message => {
         if (!VC)
             return message.reply("test")
     	VC.join().then(connection => {
-		var dispatcher = connection.play('./o-sakana tengoku.mp3');
+		var dispatcher = connection.play('./Music/o-sakana tengoku.mp3');
 		dispatcher.on("end", end => {VC.leave()});
     	})
     	    .catch(console.error);
@@ -83,7 +84,7 @@ bot.on("message", async message => {
         if (!VC)
             return message.reply("test")
     	VC.join().then(connection => {
-		var dispatcher = connection.play('./Closer.mp3');
+		var dispatcher = connection.play('./Music/Closer.mp3');
 		dispatcher.on("end", end => {VC.leave()});
     	})
     	    .catch(console.error);

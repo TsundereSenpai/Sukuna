@@ -107,4 +107,5 @@ dist
 .tern-port
 
 # Stuff I don't need on the internet
-/botconfig.json
+botconfig.json
+personalCode.js
