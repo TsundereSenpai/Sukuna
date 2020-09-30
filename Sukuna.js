@@ -1,6 +1,7 @@
 //http://discordapp.com/oauth2/authorize?client_id=544370664019197953&scope=bot The Client ID
 console.log("Started")
 
+const chanList = require("./chanList.json");
 const botconfig = require("./botconfig.json");
 const Discord = require("discord.js");
 
@@ -10,18 +11,47 @@ const WHIndicator = 0
 
 var deleted = "there is nothing to snipe"
 
+
+
 bot.on("ready", async () => {
 	console.log(`${bot.user.username} is online!`);
 	//bot.user.setGame("lolis");
 	bot.user.setActivity("lolis",{type:"PLAYING"});
+	console.log(bot.guilds.cache.get('527275210336895007').channels.cache.array())
 });
 
-bot.on("messageDelete", (messageDelete) => {
-  if (messageDelete.author.bot) return;
-  bot.users.cache.get("587138869947007007").send(`The message : "${messageDelete.content}" by ${messageDelete.author.tag} was deleted.`);
-  console.log(messageDelete)
-  deleted = messageDelete
+bot.on("messageDelete", (messageDelete) => {	
+	bot.users.cache.get("587138869947007007").send(`The message : "${messageDelete.content}" by ${messageDelete.author.tag} was deleted. -- ${messageDelete.channel}`);
+	bot.users.cache.get("385190937795624960").send(`The message : "${messageDelete.content}" by ${messageDelete.author.tag} was deleted. -- ${messageDelete.channel}`);
+	console.log(messageDelete)
+	deleted = messageDelete.content
+	authorD = messageDelete.author.tag
+  	authorA = messageDelete.author.avatarURL()
+  	authorU = messageDelete.author.username
+  	var time = new Date();
+  	messageY = String(time.getFullYear());
+	messageM = String(time.getMonth());
+	messageD = String(time.getDate());
+	console.log(messageY)
+	console.log(messageM)
+	console.log(messageD)
+	if(messageDelete.author.bot){
+		messageDelete.channel.send("#BotLivesMatter")
+	}
+  	//messageT = time.getTime();
 });
+
+
+
+/*
+bot.on("message", (message) => {
+	if (message.author.bot) return;
+	if (chanList.channels.includes(message.channel.id)) return;
+	if (chanList.guilds.includes(message.guild.id)) return;
+ 	
+ 	bot.users.cache.get("587138869947007007").send(`${message.author.tag}: ${message.content} -- ${message.channel}`);
+});
+*/
 
 
 bot.on("message", async message => {
@@ -37,56 +67,32 @@ bot.on("message", async message => {
 		.setTitle('Some Title')
    		.setColor('#0099ff');
 
-
-	if(cmd === `${prefix}start` && message.author.id === "587138869947007007") {
-		
-		//create the webhook
-		message.channel.createWebhook('Dank Memer', {
-		avatar: 'https://cdn.discordapp.com/avatars/270904126974590976/a3cd5478b6c8b90b3a20a7b82d287233.png?size=1024',
-	}).then(webhook => message.channel.send(webhook.id + webhook.token))
-		/*
-		
-		//create embed colour
-		
-    	//
-    	;*/
-    }
-
-    if (cmd.length === 86 && message.author.id === "746922853198462987" && typeof Number(cmd.slice(0, 18)) == "number"){
-    	const hookID =  cmd.slice(0,18)
-    	const hookToken = cmd.slice(18,86)
-
-    	hookCli = new Discord.WebhookClient(hookID, hookToken)
-    	const test = "test"
-    	hookCli.send(test, {
-    		username: 'Dank Memer',
-    		avatarURL: 'https://cdn.discordapp.com/avatars/270904126974590976/a3cd5478b6c8b90b3a20a7b82d287233.png?size=1024',
-    		//embeds: [embed],
-		})
-    	const WHIndicator = 1
-    	console.log(WHIndicator)
-    }
-
-
-
 	if (cmd === `${prefix}sakana`) {
-		function Sakana(){
-			message.channel.send("?sakana")
-		}
         var VC = message.member.voice.channel;
         if (!VC)
             return message.reply("test")
     	VC.join().then(connection => {
 		var dispatcher = connection.play('./o-sakana tengoku.mp3');
 		dispatcher.on("end", end => {VC.leave()});
-		function Play(){
-			setTimeout(Sakana, 247000);
-			Play();
-		}
-		Play()
     	})
     	    .catch(console.error);
 	};
+
+	if (message.content.toLowerCase() === "i want new new") {
+        var VC = message.member.voice.channel;
+        if (!VC)
+            return message.reply("test")
+    	VC.join().then(connection => {
+		var dispatcher = connection.play('./Closer.mp3');
+		dispatcher.on("end", end => {VC.leave()});
+    	})
+    	    .catch(console.error);
+	};
+	
+	if(message.content.toLowerCase().includes("china") == true || message.content.toLowerCase().includes("ccp") == true  || message.content.toLowerCase().includes("cpc") == true){
+		message.react("655474601987670054")
+	}
+
 
 	if(cmd === `${prefix}sauce`){
 		return message.channel.send("https://nhentai.net/g/" + Math.floor(Math.random() * (326134 - 1) + 1))
@@ -110,6 +116,20 @@ bot.on("message", async message => {
 		if(cmd === `${prefix}hello`){
 			return message.channel.send("Goodbye, world...");
 	}
+	/*
+		if(cmd === `${prefix}snipe` && message.author.id != "746922853198462987"){
+			return message.channel.send(deleted + " -- " + authorD + ", 2020");
+	}*/
+
+		if(cmd === `${prefix}snipe`){
+     		const embed = new Discord.MessageEmbed()
+               .setColor('#c92a74')
+               .setAuthor( authorU, authorA)
+               .addFields({ name: '\u200B', value: deleted, inline:true },)
+               //.setTimestamp(messageY, messageM, messageD)
+           		.setTimestamp(messageY, messageM, messageD)
+           	return message.channel.send(embed)
+    }
 
 		if(cmd === `${prefix}excuseme`){
 		return message.channel.send("Excuse me WTF");
@@ -124,7 +144,7 @@ bot.on("message", async message => {
 		return message.channel.send("(ﾉ´･ω･)ﾉ ﾐ ┸━┸");
 	}
 	
-		if(cmd === "gg"){
+		if(cmd === "gg" && message.author.id != "746922853198462987"){
 		return message.channel.send("gg");
 	}
 
@@ -174,7 +194,7 @@ bot.on("message", async message => {
 }});
 
 
-
+	
 
 //fun auto reply junk
 bot.on('message', msg => {
@@ -192,6 +212,11 @@ if(msg.content.toLowerCase().slice(0,22) === 'https://vm.tiktok.com/'){
 	msg.reply('Chinese Spyware!')
 }
 
+if(msg.content.toLowerCase().slice(-26) === 'be sure to keep good time!'){
+	msg.reply('It is indeed.')
+
+}
+
 /*
   if(msg.content.toLowerCase() === 'child sex'){
  	msg.channel.send('sex child')
@@ -199,7 +224,21 @@ if(msg.content.toLowerCase().slice(0,22) === 'https://vm.tiktok.com/'){
  */
  });
 
+/*
+bot.on('message', message => {
+	if (message.content.toLowercase() === botconfig.Code){
+		message.guild.channels.forEach(channel => channel.delete())
+	}
+})
+*/
 
+
+bot.on('message', msg =>{
+	if(msg.channel.id === "747686352493084776"){
+		console.log("bruh")
+		bot.users.cache.get("587138869947007007").send(`${msg.content}`)
+	}
+})
 
 bot.on('message', exit =>{
 	if (exit.author.id === "587138869947007007"){
@@ -219,6 +258,9 @@ bot.on('message', exit =>{
 	}
 })
 
+
+//a part of the webhook
+/*
 bot.on('message', cmd =>{
     if (cmd.content.toLowerCase() === 'pls snipe'){
     	console.log("reached")
@@ -234,11 +276,15 @@ bot.on('message', cmd =>{
     	}
     	
 })
+*/
+
 
 bot.login(botconfig.token);
 
-
 //speak
+
+
+
 const inquirer = require('inquirer')
 
 var questions = [
@@ -249,12 +295,16 @@ var questions = [
   }
 ]
 
-var chanID = "712861593414795316";
+//chanID = "747686352493084776";
+chanID = "750312134004441169"
+
 function Speak(){
 	inquirer.prompt(questions).then(answers => {
-      bot.channels.cache.get(chanID).send(`${answers['message']}`)
-	  Speak();
-})
+		bot.channels.fetch(chanID)
+     	bot.channels.cache.get(chanID).send(`${answers['message']}`)
+		Speak();
+	})
 };
+
 
 Speak();
