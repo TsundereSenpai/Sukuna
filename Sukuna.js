@@ -4,7 +4,7 @@ console.log("Started")
 const chanList = require("./chanList.json");
 const botconfig = require("./botconfig.json");
 const Discord = require("discord.js");
-const 
+const
 
 const bot = new Discord.Client({disableEveryone: true})
 
@@ -21,10 +21,7 @@ bot.on("ready", async () => {
 	console.log(bot.guilds.cache.get('527275210336895007').channels.cache.array())
 });
 
-bot.on("messageDelete", (messageDelete) => {	
-	bot.users.cache.get("587138869947007007").send(`The message : "${messageDelete.content}" by ${messageDelete.author.tag} was deleted. -- ${messageDelete.channel}`);
-	bot.users.cache.get("385190937795624960").send(`The message : "${messageDelete.content}" by ${messageDelete.author.tag} was deleted. -- ${messageDelete.channel}`);
-	console.log(messageDelete)
+bot.on("messageDelete", (messageDelete) => {
 	deleted = messageDelete.content
 	authorD = messageDelete.author.tag
   	authorA = messageDelete.author.avatarURL()
@@ -39,20 +36,8 @@ bot.on("messageDelete", (messageDelete) => {
 	if(messageDelete.author.bot){
 		messageDelete.channel.send("#BotLivesMatter")
 	}
-  	//messageT = time.getTime();
+  	messageT = time.getTime();
 });
-
-
-
-/*
-bot.on("message", (message) => {
-	if (message.author.bot) return;
-	if (chanList.channels.includes(message.channel.id)) return;
-	if (chanList.guilds.includes(message.guild.id)) return;
- 	
- 	bot.users.cache.get("587138869947007007").send(`${message.author.tag}: ${message.content} -- ${message.channel}`);
-});
-*/
 
 
 bot.on("message", async message => {
@@ -68,6 +53,7 @@ bot.on("message", async message => {
 		.setTitle('Some Title')
    		.setColor('#0099ff');
 
+//japanese hit, sakana in the vc
 	if (cmd === `${prefix}sakana`) {
         var VC = message.member.voice.channel;
         if (!VC)
@@ -79,6 +65,7 @@ bot.on("message", async message => {
     	    .catch(console.error);
 	};
 
+//american hit, google commerical in the vc
 	if (message.content.toLowerCase() === "i want new new") {
         var VC = message.member.voice.channel;
         if (!VC)
@@ -89,66 +76,76 @@ bot.on("message", async message => {
     	})
     	    .catch(console.error);
 	};
-	
-	if(message.content.toLowerCase().includes("china") == true || message.content.toLowerCase().includes("ccp") == true  || message.content.toLowerCase().includes("cpc") == true){
+
+	//rid communism
+	if(message.content.toLowerCase().includes("china") == true || message.content.toLowerCase().includes("ccp") == true  || message.content.toLowerCase().includes("cpc") == true || message.content.toLowerCase().includes("cina") == true || message.content.toLowerCase().includes("pcc") == true){
 		message.react("655474601987670054")
 	}
 
 
+//posts sauce in times of necessity
 	if(cmd === `${prefix}sauce`){
 		return message.channel.send("https://nhentai.net/g/" + Math.floor(Math.random() * (326134 - 1) + 1))
 	}
 
+//arrivederci
 	if(cmd === `${prefix}arrivederci`){
 		return message.channel.send("Arrivederci, may you blessed by lolis!");
 	}
 
+//boi
 		if(cmd === `${prefix}boi`){
 		return message.channel.send("<http://bit.ly/n177013>");
 	}
 
+//catgirls
 		if(cmd === `${prefix}headpat`){
 		return message.channel.send("Nya~");
 	}
 
+//when in times of doubt
 		if(cmd === `${prefix}x`){
 		return message.channel.send("I *highly* doubt that!");
 	}
+
+//test if bot is online
 		if(cmd === `${prefix}hello`){
 			return message.channel.send("Goodbye, world...");
 	}
-	/*
-		if(cmd === `${prefix}snipe` && message.author.id != "746922853198462987"){
-			return message.channel.send(deleted + " -- " + authorD + ", 2020");
-	}*/
 
+//sniping messages thought to be deleted
 		if(cmd === `${prefix}snipe`){
      		const embed = new Discord.MessageEmbed()
                .setColor('#c92a74')
                .setAuthor( authorU, authorA)
                .addFields({ name: '\u200B', value: deleted, inline:true },)
                //.setTimestamp(messageY, messageM, messageD)
-           		.setTimestamp(messageY, messageM, messageD)
+           		.setTimestamp(messageT)
            	return message.channel.send(embed)
     }
 
+//excuse me
 		if(cmd === `${prefix}excuseme`){
 		return message.channel.send("Excuse me WTF");
 	}
 
+//to think
 		if(cmd === `${prefix}pensare`){
 		message.channel.send("", {files: ["https://cdn.discordapp.com/attachments/572275807653986315/747670442436853790/newProfile.png"]});
 
 	}
 
+//angery
 		if(cmd === `${prefix}fliptable`){
 		return message.channel.send("(ﾉ´･ω･)ﾉ ﾐ ┸━┸");
 	}
-	
+
+//gg
 		if(cmd === "gg" && message.author.id != "746922853198462987"){
 		return message.channel.send("gg");
 	}
 
+//old dead commands
 		if(message.author.bot) return;
 		if(message.channel.type === "dm") return;
 
@@ -189,19 +186,19 @@ bot.on("message", async message => {
 		bot.on("messageDelete", (messageDelete) => {
 		 messageDelete.channel.send(`The message : "${messageDelete.content}" by ${messageDelete.author.tag} was deleted.`)
 		});
-	}	
+	}
 
 
 }});
 
 
-	
+
 
 //fun auto reply junk
 bot.on('message', msg => {
- if (msg === 'https://vm.tiktok.com/') return; 
+ if (msg === 'https://vm.tiktok.com/') return;
  if (msg.content.toLowerCase() === 'gn') {
- //msg.reply('Stop being weak! Do not sleep! Stay with us!'); 
+ //msg.reply('Stop being weak! Do not sleep! Stay with us!');
 	msg.reply('Bruh, you think I am stupid or something?');
  };
 
@@ -269,13 +266,13 @@ bot.on('message', cmd =>{
     		hookCli.send(deleted,{
     			username: 'Dank Memer',
     			avatarURL: 'https://cdn.discordapp.com/avatars/270904126974590976/a3cd5478b6c8b90b3a20a7b82d287233.png?size=1024',
-    		}) 
+    		})
     	}catch(error){
     		console.error(error);
     	}
     deleted = "there is nothing to be sniped"
     	}
-    	
+
 })
 */
 
