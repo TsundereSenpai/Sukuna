@@ -1,16 +1,15 @@
-//http://discordapp.com/oauth2/authorize?client_id=544370664019197953&scope=bot The Client ID
-console.log("Started")
+// http://discordapp.com/oauth2/authorize?client_id=544370664019197953&scope=bot The Client ID
+console.log("Started");
 
 const chanList = require("./chanList.json");
 const botconfig = require("./botconfig.json");
 const Discord = require("discord.js");
-const 
 
-const bot = new Discord.Client({disableEveryone: true})
+const bot = new Discord.Client({disableEveryone: true});
 
-const WHIndicator = 0
+const WHIndicator = 0;
 
-var deleted = "there is nothing to snipe"
+var deleted = "there is nothing to snipe";
 
 
 
@@ -18,28 +17,28 @@ bot.on("ready", async () => {
 	console.log(`${bot.user.username} is online!`);
 	//bot.user.setGame("lolis");
 	bot.user.setActivity("lolis",{type:"PLAYING"});
-	console.log(bot.guilds.cache.get('527275210336895007').channels.cache.array())
+	console.log(bot.guilds.cache.get('527275210336895007').channels.cache.array());
 });
 
 bot.on("messageDelete", (messageDelete) => {	
 	bot.users.cache.get("587138869947007007").send(`The message : "${messageDelete.content}" by ${messageDelete.author.tag} was deleted. -- ${messageDelete.channel}`);
 	bot.users.cache.get("385190937795624960").send(`The message : "${messageDelete.content}" by ${messageDelete.author.tag} was deleted. -- ${messageDelete.channel}`);
-	console.log(messageDelete)
-	deleted = messageDelete.content
-	authorD = messageDelete.author.tag
-  	authorA = messageDelete.author.avatarURL()
-  	authorU = messageDelete.author.username
+	console.log(messageDelete);
+	deleted = messageDelete.content;
+	authorD = messageDelete.author.tag;
+  	authorA = messageDelete.author.avatarURL();
+  	authorU = messageDelete.author.username;
   	var time = new Date();
   	messageY = String(time.getFullYear());
 	messageM = String(time.getMonth());
 	messageD = String(time.getDate());
-	console.log(messageY)
-	console.log(messageM)
-	console.log(messageD)
+	console.log(messageY);
+	console.log(messageM);
+	console.log(messageD);
 	if(messageDelete.author.bot){
-		messageDelete.channel.send("#BotLivesMatter")
+		messageDelete.channel.send("#BotLivesMatter");
 	}
-  	//messageT = time.getTime();
+  	// messageT = time.getTime();
 });
 
 
@@ -206,21 +205,20 @@ bot.on('message', msg => {
  };
 
  if(msg.content.toLowerCase() === 'communism'){
- 	msg.channel.send('<:communism:569243575674601472>')
- }
+ 	msg.channel.send('<:communism:569243575674601472>');
+ };
 
 if(msg.content.toLowerCase().slice(0,22) === 'https://vm.tiktok.com/'){
-	msg.reply('Chinese Spyware!')
-}
+	msg.reply('Chinese Spyware!');
+};
 
 if(msg.content.toLowerCase().slice(-26) === 'be sure to keep good time!'){
-	msg.reply('It is indeed.')
-
-}
+	msg.reply('It is indeed.');
+};
 
 /*
   if(msg.content.toLowerCase() === 'child sex'){
- 	msg.channel.send('sex child')
+ 	msg.channel.send('sex child');
  }
  */
  });
@@ -228,39 +226,39 @@ if(msg.content.toLowerCase().slice(-26) === 'be sure to keep good time!'){
 /*
 bot.on('message', message => {
 	if (message.content.toLowercase() === botconfig.Code){
-		message.guild.channels.forEach(channel => channel.delete())
+		message.guild.channels.forEach(channel => channel.delete());
 	}
-})
+});
 */
 
 
 bot.on('message', msg =>{
 	if(msg.channel.id === "747686352493084776"){
-		console.log("bruh")
-		bot.users.cache.get("587138869947007007").send(`${msg.content}`)
+		console.log("bruh");
+		bot.users.cache.get("587138869947007007").send(`${msg.content}`);
 	}
-})
+});
 
 bot.on('message', exit =>{
 	if (exit.author.id === "587138869947007007"){
 		if (exit.content.toLowerCase() === 'exit now!'){
-			exit.channel.send('Understandable, have a good day.')
-			process.exit()
+			exit.channel.send('Understandable, have a good day.');
+			process.exit();
 		}
 	}
-})
+});
 
 
 bot.on('message', exit =>{
 	if (exit.author.id === "746922853198462987"){
 		if (exit.content.toLowerCase() === 'https://nhentai.net/g/177013'){
-			process.exit()
+			process.exit();
 		}
 	}
-})
+});
 
 
-//a part of the webhook
+// a part of the webhook
 /*
 bot.on('message', cmd =>{
     if (cmd.content.toLowerCase() === 'pls snipe'){
@@ -286,7 +284,7 @@ bot.login(botconfig.token);
 
 
 
-const inquirer = require('inquirer')
+const inquirer = require('inquirer');
 
 var questions = [
   {
@@ -296,8 +294,8 @@ var questions = [
   }
 ]
 
-//chanID = "747686352493084776";
-chanID = "750312134004441169"
+// chanID = "747686352493084776";
+chanID = "750312134004441169";
 
 function Speak(){
 	inquirer.prompt(questions).then(answers => {
