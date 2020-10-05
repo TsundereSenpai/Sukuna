@@ -63,7 +63,7 @@ bot.on("message", async message => {
 	if (cmd === `${prefix}sakana`) {
         var VC = message.member.voice.channel;
         if (!VC)
-            return message.reply("test")
+            return message.reply("test");
     	VC.join().then(connection => {
 		var dispatcher = connection.play('./Music/o-sakana tengoku.mp3');
 		dispatcher.on("end", end => {VC.leave()});
@@ -74,8 +74,7 @@ bot.on("message", async message => {
 //american hit, google commerical in the vc
 	if (message.content.toLowerCase() === "i want new new") {
         var VC = message.member.voice.channel;
-        if (!VC)
-            return message.reply("test")
+        if (!VC) return message.reply("test");
     	VC.join().then(connection => {
 		var dispatcher = connection.play('./Music/Closer.mp3');
 		dispatcher.on("end", end => {VC.leave()});
@@ -84,14 +83,14 @@ bot.on("message", async message => {
 	};
 
 	//rid communism
-	if(message.content.toLowerCase().includes("china") == true || message.content.toLowerCase().includes("ccp") == true  || message.content.toLowerCase().includes("cpc") == true || message.content.toLowerCase().includes("cina") == true || message.content.toLowerCase().includes("pcc") == true){
-		message.react("655474601987670054")
+	if(message.content.toLowerCase().includes("china") || message.content.toLowerCase().includes("ccp") || message.content.toLowerCase().includes("cpc") || message.content.toLowerCase().includes("cina") || message.content.toLowerCase().includes("pcc")){
+		message.react("655474601987670054");
 	}
 
 
 //posts sauce in times of necessity
 	if(cmd === `${prefix}sauce`){
-		return message.channel.send("https://nhentai.net/g/" + Math.floor(Math.random() * (326134 - 1) + 1))
+		return message.channel.send("|| https://nhentai.net/g/" + Math.floor(Math.random() * (326134 - 1) + 1) + "||");
 	}
 
 //arrivederci
@@ -127,7 +126,7 @@ bot.on("message", async message => {
                .addFields({ name: '\u200B', value: deleted, inline:true },)
                //.setTimestamp(messageY, messageM, messageD)
            		.setTimestamp(messageT)
-           	return message.channel.send(embed)
+           	return message.channel.send(embed);
     }
 
 //excuse me
@@ -152,12 +151,11 @@ bot.on("message", async message => {
 	}
 
 //old dead commands
-		if(message.author.bot) return;
-		if(message.channel.type === "dm") return;
+		if(message.author.bot || message.channel.type == 'dm') return;
 
 		if(message.content.startsWith(prefix + "help")){
 			message.channel.send("Check DM");
-			message.author.send("Lmao you think I'll help you?")
+			message.author.send("Lmao you think I'll help you?");
 		}
 
 		if(message.content.startsWith(prefix + "prune")){
@@ -165,14 +163,14 @@ bot.on("message", async message => {
 			let author = message.member;
 			let role = message.guild.roles.find('name', "Owner");
 			if(author.roles.has(role.id)){
-				message.delete()
+				message.delete();
 				message.channel.bulkDelete(args[0]);
 				message.channel.send({embed:{
 					color:0x28d62b,
 					description:"boom, " + args[0] + " messages is gone!"
 				}})
 			}else{
-				message.reply("Hey! You can't do that!")
+				message.reply("Hey! You can't do that!");
 			}
 			return
 
@@ -190,7 +188,7 @@ bot.on("message", async message => {
 
 		return message.channel.send(serverembed)
 		bot.on("messageDelete", (messageDelete) => {
-		 messageDelete.channel.send(`The message : "${messageDelete.content}" by ${messageDelete.author.tag} was deleted.`)
+		 messageDelete.channel.send(`The message : "${messageDelete.content}" by ${messageDelete.author.tag} was deleted.`);
 		});
 	}
 
